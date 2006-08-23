@@ -26,12 +26,10 @@ def grassBlade( length, baseRadius, curve, segments)
         y2 = Math::cos( degrees )*((segment+1)*length/segments)
         
         cone = Cone.new(
-            VectorRadius.new(
-                Povray::DataTypes::Vector::ThreeD.new(x1,y1,0) ,
-                (segments-segment)*baseRadius/segments),
-            VectorRadius.new(
-                Povray::DataTypes::Vector::ThreeD.new(x2,y2,0) ,
-                (segments-(segment+1))*baseRadius/segments))
+            Povray::DataTypes::Vector::ThreeD.new(x1,y1,0),
+            (segments-segment)*baseRadius/segments,
+            Povray::DataTypes::Vector::ThreeD.new(x2,y2,0),
+            (segments-(segment+1))*baseRadius/segments)
         cone << $grassTexture
         blade << cone
     end
