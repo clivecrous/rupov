@@ -282,19 +282,95 @@ module Povray
     module DataTypes
         module Vector
             module Common
-                module TwoD
+                module X
                     def x
                         @items[0]
                     end
                     def x=(x)
                         @items[0]=x
                     end
-
+                end
+                module Y
                     def y
                         @items[1]
                     end
                     def y=(y)
                         @items[1]=y
+                    end
+                end
+                module Z
+                    def z
+                        @items[2]
+                    end
+                    def z=(z)
+                        @items[2]=z
+                    end
+                end
+                module R
+                    def r
+                        @items[0]
+                    end
+                    def r=(r)
+                        @items[0]=r
+                    end
+                end
+                module G
+                    def g
+                        @items[1]
+                    end
+                    def g=(g)
+                        @items[1]=g
+                    end
+                end
+                module B
+                    def b
+                        @items[2]
+                    end
+                    def b=(b)
+                        @items[2]=z
+                    end
+                end
+                module F
+                    def f
+                        @items[3]
+                    end
+                    def f=(f)
+                        @items[3]=f
+                    end
+                end
+                module XY
+                    include X
+                    include Y
+                end
+                module XYZ
+                    include XY
+                    include Z
+                end
+                module RGB
+                    include R
+                    include G
+                    include B
+                end
+                module RGBF
+                    include RGB
+                    include F
+                end
+                module RGBT
+                    include RGB
+                    def t
+                        @items[3]
+                    end
+                    def t=(t)
+                        @items[3]=t
+                    end
+                end
+                module RGBFT
+                    include RGBF
+                    def t
+                        @items[4]
+                    end
+                    def t=(t)
+                        @items[4]=t
                     end
                 end
             end
@@ -311,47 +387,41 @@ module Povray
                     "<#{@items.join(',')}>"
                 end
             end
-            class TwoD < Generic
+            class XY < Generic
                 def initialize( x, y)
                     super( [x,y])
                 end
-                include Common::TwoD
+                include Common::XY
             end
-            class ThreeD < Generic
+            class XYZ < Generic
                 def initialize( x, y, z)
                     super( [x,y,z])
                 end
-                include Common::TwoD
-                def z
-                    @items[2]
-                end
-                def z=(z)
-                    @items[2]=z
-                end
+                include Common::XYZ
             end
-            class Colour < Generic
+            class RGB < Generic
                 def initialize( r, g, b)
                     super( [r,g,b])
                 end
-                def r
-                    @items[0]
+                include Common::RGB
+            end
+            class RGBF < Generic
+                def initialize( r, g, b, f)
+                    super( [r,g,b,f])
                 end
-                def r=(r)
-                    @items[0]=r
+                include Common::RGBF
+            end
+            class RGBT < Generic
+                def initialize( r, g, b, t)
+                    super( [r,g,b,t])
                 end
-
-                def g
-                    @items[1]
+                include Common::RGBT
+            end
+            class RGBFT < Generic
+                def initialize( r, g, b, f, t)
+                    super( [r,g,b,f,t])
                 end
-                def g=(g)
-                    @items[1]=g
-                end
-                def b
-                    @items[2]
-                end
-                def b=(b)
-                    @items[2]=b
-                end
+                include Common::RGBFT
             end
         end
     end
@@ -386,37 +456,37 @@ module Povray
             end
         end
 
-        class Location < DataTypes::Vector::ThreeD
+        class Location < DataTypes::Vector::XYZ
             def to_s
                 "location #{super}"
             end
         end
 
-        class Rotate < DataTypes::Vector::ThreeD
+        class Rotate < DataTypes::Vector::XYZ
             def to_s
                 "rotate #{super}"
             end
         end
 
-        class Scale < DataTypes::Vector::ThreeD
+        class Scale < DataTypes::Vector::XYZ
             def to_s
                 "scale #{super}"
             end
         end
 
-        class Translate < DataTypes::Vector::ThreeD
+        class Translate < DataTypes::Vector::XYZ
             def to_s
                 "translate #{super}"
             end
         end
 
-        class LookAt < DataTypes::Vector::ThreeD
+        class LookAt < DataTypes::Vector::XYZ
             def to_s
                 "look_at #{super}"
             end
         end
 
-        class Direction < DataTypes::Vector::ThreeD
+        class Direction < DataTypes::Vector::XYZ
             def to_s
                 "direction #{super}"
             end
