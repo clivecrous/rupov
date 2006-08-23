@@ -154,6 +154,12 @@ module Povray
             end
         end
 
+        class LightGroup < Base
+            def initialize
+                super( 'light_group' )
+            end
+        end
+        
         class PointLight < LightSource
             def initialize( location, colour )
                 super()
