@@ -195,6 +195,24 @@ module Povray
             end
         end
 
+        class Rotate < Vector
+            def initialize( vector )
+                super( vector, 'rotate' )
+            end
+        end
+
+        class Scale < Vector
+            def initialize( vector )
+                super( vector, 'scale' )
+            end
+        end
+
+        class Translate < Vector
+            def initialize( vector )
+                super( vector, 'translate' )
+            end
+        end
+
         class LookAt < Vector
             def initialize( lookat )
                 super( lookat, 'look_at' )
