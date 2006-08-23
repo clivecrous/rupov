@@ -8,7 +8,8 @@ class Scene < Povray::Group
         include Methods
         def initialize( rotate, translate )
             super()
-            wall = Plane.new( DataTypes::Vector::XYZ.new(0,0,-1),2 )
+            entireWall = CSG::Union.new()
+            wall = Plane.new( DataTypes::Vector::XYZ.new(0,0,-1),0 )
             texture = Texture.new()
             texture << SolidColour.new( Colour.new( DataTypes::Vector::RGB.new(1,0.95,0.9) ) )
             normalCrackle = Normal.new()
@@ -21,10 +22,34 @@ class Scene < Povray::Group
             texture << finish
             wall << texture
 
-            wall << Rotate.new( rotate )
-            wall << Translate.new( translate )
+            sideboard = CSG::Difference.new()
+            sideboard << FiniteSolidPrimitives::Box.new(
+                DataTypes::Vector::XYZ.new(-50,0,0),
+                DataTypes::Vector::XYZ.new( 50,0.75,0.3) )
+            sideboard_miniblock = FiniteSolidPrimitives::Box.new(
+                DataTypes::Vector::XYZ.new(-50,0.6,0.15),
+                DataTypes::Vector::XYZ.new( 50,0.751,0.31) )
+            sideboard_cutout = CSG::Difference.new()
+            sideboard_cutoutinner = CSG::Intersection.new()
+            sideboard_cutoutinner << sideboard_miniblock
+            sideboard_cutoutinner << FiniteSolidPrimitives::Cylinder.new(
+                DataTypes::Vector::XYZ.new(-50,0.6,0.15),
+                DataTypes::Vector::XYZ.new( 50,0.6,0.15), 0.15 )
+            sideboard_cutout << sideboard_miniblock
+            sideboard_cutout << sideboard_cutoutinner
+            sideboard << sideboard_cutout
+            texture = Texture.new()
+            texture << SolidColour.new( Colour.new( DataTypes::Vector::RGB.new(0.75,0.5,0) ) )
+            sideboard << texture
+            sideboard_cutout << texture
+            
+            entireWall << wall
+            entireWall << sideboard
+            
+            entireWall << Rotate.new( rotate )
+            entireWall << Translate.new( translate )
 
-            self << wall
+            self << entireWall
         end
     end
     
@@ -43,28 +68,25 @@ class Scene < Povray::Group
         self << global_settings
 
         self << Camera::Basic.new(
-                    Location.new( Povray::DataTypes::Vector::XYZ.new(1,1.25,2) ),
-                    LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0.25,0) ) )
+                    Location.new( Povray::DataTypes::Vector::XYZ.new(1,1.75,2) ),
+                    LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0.75,0) ) )
 
         self << LightSources::PointLight.new(
-                    Povray::DataTypes::Vector::XYZ.new( 2,5,5 ), Colour.new( "White" ) )
+                    Povray::DataTypes::Vector::XYZ.new( 5,5,2 ), Colour.new( "White" ) )
 
         floor = Plane.new( Povray::DataTypes::Vector::XYZ.new( 0,1,0 ), 0)
         checker = Texture.new()
         checker << Checker.new( Colour.new( "White" ), Colour.new( "Blue" ) )
         checker << Scale.new( 0.3 )
         floor << checker
-        finish = Finish.new()
-        finish << Reflection.new( 0.3 )
-        floor << finish
 
         self << floor 
 
         self << Wall.new(
                     Povray::DataTypes::Vector::XYZ.new( 0,0,0),
-                    Povray::DataTypes::Vector::XYZ.new(0,0,-1) )
+                    Povray::DataTypes::Vector::XYZ.new(0,0,-2) )
         self << Wall.new(
                     Povray::DataTypes::Vector::XYZ.new( 0,90,0),
-                    Povray::DataTypes::Vector::XYZ.new(-1,0,0) )
+                    Povray::DataTypes::Vector::XYZ.new(-2,0,0) )
     end
 end
