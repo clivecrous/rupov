@@ -121,12 +121,6 @@ module Povray
             end
         end
             
-        class Background < Base
-            def initialize
-                super( 'background' )
-            end
-        end
-
         class Camera < Base
             def initialize
                 super( 'camera' )
@@ -157,6 +151,15 @@ module Povray
 
     end
 
+    module Atmosphere
+        class Background < Base
+            def initialize( colour )
+                super( 'background' )
+                self << colour
+            end
+        end
+    end
+    
     module Textures
 
         class Texture < Base

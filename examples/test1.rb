@@ -1,14 +1,14 @@
 require 'povray.rb'
 include Povray::Objects
 include FiniteSolidPrimitives
+include Povray::Atmosphere
 include Povray::Methods
 include Povray::LightSources
 include Povray::Textures
 
 maingroup = Povray::Group.new()
 
-background = Background.new()
-background << Colour.new( "Black" )
+background = Background.new( Colour.new( "Black" ) )
 
 camera = Camera.new()
 camera << Location.new( [0, 50, 0] )
