@@ -80,6 +80,17 @@ module Povray
             end
         end
 
+        module FinitePatchPrimitives
+            class Disc < Base
+                def initialize( centre, normal, radius, holeRadius=0.0 )
+                    super( 'disc' )
+                    initline = "#{centre}, #{normal}, #{radius}"
+                    initline += ", #{holeRadius}" if holeRadius != 0.0
+                    self << initline
+                end
+            end
+        end
+        
         module InfiniteSolidPrimitives
             class Plane < Base
                 def initialize( normal, distance )
