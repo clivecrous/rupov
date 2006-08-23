@@ -79,19 +79,19 @@ module Povray
             end
         end
 
-        class Location < Vector
-            def initialize( location )
-                super( location, 'location' )
+        class VectorRadius < Vector
+            def initialize( items, radius, name='' )
+                super( items, '' )
+                @radius = radius
+            end
+            def to_s
+                "#{super}, #{@radius}"
             end
         end
 
-        class LocationRadius < Vector
-            def initialize( location, r )
-                super( location, '' )
-                @r = r
-            end
-            def to_s
-                "#{super}, #{@r}"
+        class Location < Vector
+            def initialize( location )
+                super( location, 'location' )
             end
         end
 
