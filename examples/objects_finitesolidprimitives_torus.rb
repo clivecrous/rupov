@@ -4,7 +4,7 @@ require 'include/genericscene.rb'
 scene = Scene.new()
 
 torus =
-    Povray::Objects::FiniteSolidPrimitives::Torus.new( 0.85, 0.3 )
+    Povray::Objects::FiniteSolidPrimitives::Torus.new( 0.65, 0.2 )
 
 torus << Povray::Textures::Pigments::SolidColour.new( Povray::Methods::Colour.new( "Yellow" ) )
 
