@@ -447,6 +447,12 @@ module Povray
             end
         end
 
+        class Include < MultiValue
+            def initialize( filename )
+                super( ["\"#{filename}\""], '#include' )
+            end
+        end
+
         class Vector < MultiValue
             def initialize( vector, name='' )
                 super( [vector], '' )
