@@ -45,8 +45,9 @@ class Scene < Povray::Group
             colour_map = Base.new('colour_map')
             colour_map << "M_Teak"
             pigment << colour_map
-            pigment << Scale.new( 0.5 )
-            pigment << Rotate.new( DataTypes::Vector::XYZ.new(75,60,90) )
+            pigment << Scale.new( 0.75 )
+            pigment << Rotate.new( DataTypes::Vector::XYZ.new(2,85,5) )
+            pigment << Translate.new( DataTypes::Vector::XYZ.new(100,200,300) )
             texture << pigment
 
             sideboard << texture
