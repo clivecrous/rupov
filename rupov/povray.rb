@@ -54,6 +54,13 @@ module Povray
             end
         end
 
+        class Plane < Base
+            def initialize( vector, displacement )
+                super( 'plane' )
+                self << Methods::VectorRadius.new( vector, displacement )
+            end
+        end
+        
         class Sphere < Base
             def initialize
                 super( 'sphere' )
