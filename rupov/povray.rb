@@ -124,6 +124,14 @@ module Povray
                 end
             end
 
+            class SuperEllipsoid < Base
+                def initialize( roundness )
+                    super('superellipsoid')
+                    self << roundness
+                    yield(self) if block_given? and self.class == SuperEllipsoid
+                end
+            end
+
             class Torus < Base
                 def initialize( majorRadius, minorRadius, sturm = false )
                     super( 'torus')
