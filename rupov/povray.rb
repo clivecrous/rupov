@@ -111,10 +111,9 @@ module Povray
             end
 
             class Triangle < Base
-                # FIXME: dated
                 def initialize( corner1, corner2, corner3 )
                     super( 'triangle' )
-                    self << "#{corner1}, #{corner2}, #{corner3}"
+                    self << Methods::MultiValue.new( [ corner1, corner2, corner3 ] )
                 end
             end
 
