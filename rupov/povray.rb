@@ -152,7 +152,7 @@ module Povray
         
         module InfiniteSolidPrimitives
             class Plane < Base
-                def initialize( normal, distance )
+                def initialize( normal, distance=0 )
                     super( 'plane' )
                     self << Methods::MultiValue.new([normal,distance])
                 end
