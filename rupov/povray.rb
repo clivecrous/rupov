@@ -46,6 +46,14 @@ module Povray
             end
         end
 
+        class Cylinder < Base
+            def initialize( leftCentre, rightCentre, radius, open = false )
+                super( 'cylinder' )
+                self << "#{Methods::Vector.new( leftCentre )},#{Methods::Vector.new( rightCentre )},#{radius}"
+                self << "open" if open
+            end
+        end
+
         class Sphere < Base
             def initialize
                 super( 'sphere' )
