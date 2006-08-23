@@ -118,6 +118,12 @@ module Povray
                 super( 'union' )
             end
         end
+
+        class Intersection < Base
+            def initialize
+                super( 'intersection' )
+            end
+        end
         
     end
 
