@@ -34,7 +34,7 @@ colours = []
             finish << Povray::Methods::Specular.new(1.4)
             finish << Povray::Methods::Roughness.new(1.0/120)
         }
-    }
+    }.to_s
 }
 
 $threshold = "0"
@@ -44,25 +44,29 @@ StrengthPower = 1.75
 
 puts "Generating scene..."
 scene = Povray::Group.new { |scene|
-        scene << Povray::Methods::Include.new('colors.inc')
-        scene << Povray::Camera::Basic.new(
-                    Povray::Methods::Location.new( Povray::DataTypes::Vector::XYZ.new(1,1.75,2) ),
-                    Povray::Methods::LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0.25,0) ) )
-        scene << Povray::LightSources::PointLight.new(
-                    Povray::DataTypes::Vector::XYZ.new( 5,5,2 ), Povray::Methods::Colour.new( "White" ) )
-        scene << Povray::Atmosphere::Background.new( Povray::Methods::Colour.new( "White" ) )
+        scene << Povray::Group.new() { |prerender|
+            prerender << Povray::Methods::Include.new('colors.inc')
+            prerender << Povray::Camera::Basic.new(
+                        Povray::Methods::Location.new( Povray::DataTypes::Vector::XYZ.new(1,1.75,2) ),
+                        Povray::Methods::LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0.25,0) ) )
+            prerender << Povray::LightSources::PointLight.new(
+                        Povray::DataTypes::Vector::XYZ.new( 5,5,2 ), Povray::Methods::Colour.new( "White" ) )
+            prerender << Povray::Atmosphere::Background.new( Povray::Methods::Colour.new( "White" ) )
+        }.to_s
 
         scene << Povray::Objects::FiniteSolidPrimitives::Blob.new( $threshold ) { |blob|
-            geo.each { |(x,y,z,mean)|
-                x=x/75-0.8; y=y/75-0.8; z/=20
-                colour = (mean**1.1).to_i
-                colour=MaxColours if colour > MaxColours
-                blob << Povray::Objects::FiniteSolidPrimitives::Sphere.new(
-                   Povray::DataTypes::Vector::XYZ.new( x,z,y ), 0.1 ) { |sphere|
-                       sphere << (mean.to_f**StrengthPower)/(MaxColours**StrengthPower)
-                       sphere << colours[colour]
+            blob << Povray::Group.new() { |prerender|
+                geo.each { |(x,y,z,mean)|
+                    x=x/75-0.8; y=y/75-0.8; z/=20
+                    colour = (mean**1.1).to_i
+                    colour=MaxColours if colour > MaxColours
+                    prerender << Povray::Objects::FiniteSolidPrimitives::Sphere.new(
+                       Povray::DataTypes::Vector::XYZ.new( x,z,y ), 0.1 ) { |sphere|
+                           sphere << (mean.to_f**StrengthPower)/(MaxColours**StrengthPower)
+                           sphere << colours[colour]
+                    }
                 }
-            }
+            }.to_s
             blob << Povray::Methods::Rotate.new( $rotation )
         }
 }
