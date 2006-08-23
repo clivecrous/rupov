@@ -121,18 +121,6 @@ module Povray
             end
         end
             
-        class Texture < Base
-            def initialize
-                super( 'texture' )
-            end
-        end
-
-        class Pigment < Base
-            def initialize
-                super( 'pigment' )
-            end
-        end
-
         class Background < Base
             def initialize
                 super( 'background' )
@@ -169,6 +157,22 @@ module Povray
 
     end
 
+    module Textures
+
+        class Texture < Base
+            def initialize
+                super( 'texture' )
+            end
+        end
+
+        class Pigment < Base
+            def initialize
+                super( 'pigment' )
+            end
+        end
+
+    end
+    
     module CSG
 
         class Difference < Base

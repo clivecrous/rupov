@@ -3,6 +3,7 @@ include Povray::Objects
 include FiniteSolidPrimitives
 include Povray::Methods
 include Povray::LightSources
+include Povray::Textures
 
 maingroup = Povray::Group.new()
 
