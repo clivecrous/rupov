@@ -1,7 +1,8 @@
 WIDTH = 1024
 HEIGHT = 768
+QUALITY = 11
 
-POVRAY = povray -D Width=$(WIDTH) Height=$(HEIGHT)
+POVRAY = povray -D Width=$(WIDTH) Height=$(HEIGHT) Quality=$(QUALITY)
 
 PNGFILES = $(subst .rb,.png,$(wildcard *.rb))
 POVFILES = $(subst .rb,.pov,$(wildcard *.rb))
