@@ -132,6 +132,24 @@ module Povray
                 end
             end
 
+            class SurfaceOfRevolution < Base
+                def initialize( points, open = false, sturm = false )
+                    super( 'sor' )
+                    self << Methods::MultiValue.new( [points.length]+points )
+                    @open = open
+                    @sturm = sturm
+                    yield(self) if block_given? and self.class == SurfaceOfRevolution
+                end
+                def to_s
+                    self << "open" if @open
+                    self << "sturm" if @sturm
+                    result = super()
+                    self.pop() if @sturm
+                    self.pop() if @open
+                    result
+                end
+            end
+
             class Torus < Base
                 def initialize( majorRadius, minorRadius, sturm = false )
                     super( 'torus')
