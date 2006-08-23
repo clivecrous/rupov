@@ -1,5 +1,5 @@
-WIDTH = 800
-HEIGHT = 600
+WIDTH = 1024
+HEIGHT = 768
 
 POVRAY = povray -D Width=$(WIDTH) Height=$(HEIGHT)
 
