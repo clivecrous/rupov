@@ -95,12 +95,11 @@ module Povray
 
         module FinitePatchPrimitives
             class Disc < Base
-                # FIXME: dated
                 def initialize( centre, normal, radius, holeRadius=0.0 )
                     super( 'disc' )
-                    initline = "#{centre}, #{normal}, #{radius}"
-                    initline += ", #{holeRadius}" if holeRadius != 0.0
-                    self << initline
+                    multivalue = [centre,normal,radius]
+                    multivalue << holeRadius if holeRadius != 0.0
+                    self << Methods::MultiValue.new( multivalue )
                 end
             end
 
