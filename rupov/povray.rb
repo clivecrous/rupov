@@ -8,9 +8,10 @@ module Povray
             yield(self) if block_given? and self.class == Base
         end
         def to_s
-            children = ''
-            @children.each { |child| child.to_s.each { |line| children += " "*4+line.rstrip+"\n" } }
-            "#{name}#{name.length>0?' ':''}{\n#{children}}"
+            result = "#{name}#{name.length>0?' ':''}{\n"
+            @children.each { |child| child.to_s.each { |line| result << " "*4+line.rstrip+"\n" } }
+            result << "}"
+            result
         end
         def <<( child )
             @children << child
