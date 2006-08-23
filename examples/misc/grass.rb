@@ -18,7 +18,7 @@ $grassTexture << Pigments::SolidColour.new( ColourRGB.new( $grassColour ) )
 def grassBlade( length, baseRadius, curve, segments)
     blade = CSG::Union.new()
 
-    $grassColour.g = rand()*0.4 + 0.6
+    $grassColour.g = rand()*0.8 + 0.4
     $grassColour.r = rand()*0.4
 
     degrees = 0
@@ -34,10 +34,9 @@ def grassBlade( length, baseRadius, curve, segments)
             (segments-segment)*baseRadius/segments,
             Povray::DataTypes::Vector::ThreeD.new(x2,y2,0),
             (segments-(segment+1))*baseRadius/segments)
-        cone << $grassTexture
+        $grassColour.r-=0.025 if $grassColour.r > 0.025
+        cone << $grassTexture.to_s # It must be rendered at this point
         blade << cone
-        $grassColour.r-=0.05 if $grassColour.r > 0
-        $grassColour.g-=0.01 if $grassColour.g > 0
     end
 
     blade
@@ -50,12 +49,16 @@ scene << '#include "colors.inc"'
 scene << Background.new( Colour.new( "Black" ) )
 scene << Camera::Basic.new( Location.new( 35, 20, 50 ), LookAt.new( 25, -15, 15 ) )
 
-scene << PointLight.new( Povray::DataTypes::Vector::ThreeD.new( 20,30,40 ), Colour.new( "White" ) )
-scene << PointLight.new( Povray::DataTypes::Vector::ThreeD.new( 0,30,10 ), Colour.new( "White" ) )
+scene << PointLight.new( Povray::DataTypes::Vector::ThreeD.new( 25,20,60 ), Colour.new( "White" ) )
+# scene << PointLight.new( Povray::DataTypes::Vector::ThreeD.new( 0,30,10 ), Colour.new( "White" ) )
 
 ground = Plane.new( Povray::DataTypes::Vector::ThreeD.new(0,1,0), 0 )
-ground << Pigments::SolidColour.new( ColourRGB.new( Povray::DataTypes::Vector::ThreeD.new(0.6,0.4,0) ) )
-
+groundTexture = Texture.new()
+groundTexture << Pigments::SolidColour.new( ColourRGB.new( Povray::DataTypes::Vector::ThreeD.new(0.6,0.4,0) ) )
+groundFinish = Finish.new()
+groundFinish << "crand 0.5"
+groundTexture << groundFinish
+ground << groundTexture
 scene << ground
 
 print scene
