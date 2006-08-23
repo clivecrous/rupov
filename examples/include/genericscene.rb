@@ -15,6 +15,10 @@ class Scene < Povray::Group
         checker = Texture.new()
         checker << Checker.new( Colour.new( "White" ), Colour.new( "Blue" ) )
         floor << checker
+        finish = Finish.new()
+        finish << MultiValue.new([0.6],"diffuse")
+        finish << MultiValue.new([0.4],"ambient")
+        floor << finish
         self << floor
     end
 end
