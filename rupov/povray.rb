@@ -118,10 +118,12 @@ module Povray
             end
 
             class SmoothTriangle < Base
-                # FIXME: dated
                 def initialize( corner1, normal1, corner2, normal2, corner3, normal3 )
                     super( 'smooth_triangle' )
-                    self << "#{corner1}, #{normal1}, #{corner2}, #{normal2}, #{corner3}, #{normal3}"
+                    self << Methods::MultiValue.new(
+                        [   corner1, normal1,
+                            corner2, normal2,
+                            corner3, normal3 ] )
                 end
             end
         end
