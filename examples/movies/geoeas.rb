@@ -98,11 +98,7 @@ scene = Povray::Group.new { |scene|
                        prerender << colours[colour]
                    }.to_s
             }
-            if Blob
-                blob << sphere.to_s
-            else
-                blob << sphere
-            end
+            blob << (Blob ? sphere.to_s : sphere)
         }
         blob << Povray::Methods::Rotate.new( $rotation )
         scene << blob
