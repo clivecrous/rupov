@@ -89,6 +89,13 @@ module Povray
                     self << initline
                 end
             end
+
+            class Polygon < Base
+                def initialize( points )
+                    super( 'polygon' )
+                    self << "#{points.length}, #{points.join(', ')}"
+                end
+            end
         end
         
         module InfiniteSolidPrimitives
