@@ -72,9 +72,10 @@ module Povray
             end
 
             class Torus < Base
-                def initialize( majorRadius, minorRadius )
+                def initialize( majorRadius, minorRadius, sturm = false )
                     super( 'torus')
                     self << "#{majorRadius}, #{minorRadius}"
+                    self << "sturm" if sturm
                 end
             end
         end
