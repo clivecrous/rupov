@@ -108,6 +108,22 @@ module Povray
                 end
             end
 
+            class SphereSweep < Base
+                Tolerance = 0.000001
+                def initialize( spheresweep, splineType = "linear_spline", tolerance=Tolerance )
+                    super( 'sphere_sweep' )
+                    self << Methods::MultiValue.new( [spheresweep.length/2]+spheresweep, splineType )
+                    @tolerance = tolerance
+                    yield(self) if block_given? and self.class == SphereSweep
+                end
+                def to_s
+                    self << Methods::MultiValue.new( @tolerance, 'tolerance') if @tolerance != Tolerance
+                    result = super()
+                    self.pop() if @tolerance != Tolerance
+                    result
+                end
+            end
+
             class Torus < Base
                 def initialize( majorRadius, minorRadius, sturm = false )
                     super( 'torus')
