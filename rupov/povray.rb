@@ -104,10 +104,9 @@ module Povray
             end
 
             class Polygon < Base
-                # FIXME: dated
                 def initialize( points )
                     super( 'polygon' )
-                    self << "#{points.length}, #{points.join(', ')}"
+                    self << Methods::MultiValue.new( [points.length]+points )
                 end
             end
 
