@@ -1,5 +1,3 @@
-require '../rupov/povray.rb'
-
 class Scene < Povray::Group
     include Povray
     include Objects

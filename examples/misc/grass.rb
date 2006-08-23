@@ -1,4 +1,4 @@
-require '../rupov/povray.rb'
+require '../../rupov/povray.rb'
 include Povray
 
 include Objects

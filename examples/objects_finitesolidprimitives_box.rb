@@ -1,3 +1,4 @@
+require '../rupov/povray.rb'
 require 'include/genericscene.rb'
 
 scene = Scene.new()
