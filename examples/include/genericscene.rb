@@ -50,8 +50,8 @@ class Scene < Povray::Group
             texture << pigment
             finish = Finish.new()
             finish << "diffuse 0.8"
-            finish << "ambient 0.2"
-            finish << "roughness 0.2"
+            finish << "ambient 0.1"
+            finish << "roughness 0.5"
             finish << "phong 1"
             texture << finish
 
