@@ -1,5 +1,5 @@
-WIDTH = 1024
-HEIGHT = 768
+WIDTH = 800
+HEIGHT = 600
 QUALITY = 11
 
 POVRAY = povray -D Width=$(WIDTH) Height=$(HEIGHT) Quality=$(QUALITY)
