@@ -29,51 +29,64 @@ module Povray
 
     module Objects
 
-        class Box < Base
-            def initialize( lowerLeftCorner, upperRightCorner )
-                super( 'box' )
-                self << Methods::Vector.new( lowerLeftCorner)
-                self << Methods::Vector.new( upperRightCorner )
+        module FiniteSolidPrimitives
+
+            class Box < Base
+                def initialize( lowerLeftCorner, upperRightCorner )
+                    super( 'box' )
+                    self << Methods::Vector.new( lowerLeftCorner)
+                    self << Methods::Vector.new( upperRightCorner )
+                end
+            end
+
+            class Cone < Base
+                def initialize( leftCentre, leftRadius, rightCentre, rightRadius, open = false )
+                    super( 'cone' )
+                    self << Methods::VectorRadius.new( leftCentre, leftRadius )
+                    self << Methods::VectorRadius.new( rightCentre, rightRadius )
+                    self << "open" if open
+                end
+            end
+
+            class Cylinder < Base
+                def initialize( leftCentre, rightCentre, radius, open = false )
+                    super( 'cylinder' )
+                    self << "#{Methods::Vector.new( leftCentre )},#{Methods::Vector.new( rightCentre )},#{radius}"
+                    self << "open" if open
+                end
+            end
+
+            class Lathe < Base
+                def initialize( points, splineType = "linear_spline", sturm = false )
+                    super( 'lathe' )
+                    self << "#{splineType} #{points.length}, #{points.join(', ')}"
+                end
+            end
+            
+            class Sphere < Base
+                def initialize( centre, radius )
+                    super( 'sphere' )
+                    self << Methods::VectorRadius.new( centre, radius)
+                end
+            end
+
+            class Torus < Base
+                def initialize( majorRadius, minorRadius )
+                    super( 'torus')
+                    self << "#{majorRadius}, #{minorRadius}"
+                end
             end
         end
 
-        class Cone < Base
-            def initialize( leftCentre, leftRadius, rightCentre, rightRadius, open = false )
-                super( 'cone' )
-                self << Methods::VectorRadius.new( leftCentre, leftRadius )
-                self << Methods::VectorRadius.new( rightCentre, rightRadius )
-                self << "open" if open
+        module InfiniteSolidPrimitives
+            class Plane < Base
+                def initialize( vector, displacement )
+                    super( 'plane' )
+                    self << Methods::VectorRadius.new( vector, displacement )
+                end
             end
         end
-
-        class Cylinder < Base
-            def initialize( leftCentre, rightCentre, radius, open = false )
-                super( 'cylinder' )
-                self << "#{Methods::Vector.new( leftCentre )},#{Methods::Vector.new( rightCentre )},#{radius}"
-                self << "open" if open
-            end
-        end
-
-        class Plane < Base
-            def initialize( vector, displacement )
-                super( 'plane' )
-                self << Methods::VectorRadius.new( vector, displacement )
-            end
-        end
-        
-        class Torus < Base
-            def initialize( majorRadius, minorRadius )
-                super( 'torus')
-                self << "#{majorRadius}, #{minorRadius}"
-            end
-        end
-        
-        class Sphere < Base
-            def initialize
-                super( 'sphere' )
-            end
-        end
-
+            
         class LightSource < Base
             def initialize
                 super( 'light_source' )
