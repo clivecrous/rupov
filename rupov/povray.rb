@@ -51,8 +51,14 @@ module Povray
             class Cylinder < Base
                 def initialize( leftCentre, rightCentre, radius, open = false )
                     super( 'cylinder' )
-                    self << "#{leftCentre},#{rightCentre},#{radius}"
-                    self << "open" if open
+                    self << Methods::MultiValue.new([leftCentre,rightCentre,radius])
+                    @open = open
+                end
+                def to_s
+                    self << "open" if @open
+                    result = super()
+                    self.pop() if @open
+                    result
                 end
             end
 
@@ -139,7 +145,7 @@ module Povray
         class PointLight < LightSource
             def initialize( location, colour )
                 super()
-                self << "#{location}, #{colour}"
+                self << Methods::MultiValue.new( [location,colour] )
             end
         end
 
@@ -261,9 +267,62 @@ module Povray
         
     end
 
+    module DataTypes
+        module Vector
+            module Common
+                module TwoD
+                    def x
+                        @items[0]
+                    end
+                    def x=(x)
+                        @items[0]=x
+                    end
+
+                    def y
+                        @items[1]
+                    end
+                    def y=(y)
+                        @items[1]=y
+                    end
+                end
+            end
+            class Generic
+                def initialize( items )
+                    @items = []
+                    self.set( items )
+                end
+                def set( items )
+                    @items.clear
+                    @items.concat items
+                end
+                def to_s
+                    "<#{@items.join(',')}>"
+                end
+            end
+            class TwoD < Generic
+                def initialize( x, y)
+                    super( [x,y])
+                end
+                include Common::TwoD
+            end
+            class ThreeD < Generic
+                def initialize( x, y, z)
+                    super( [x,y,z])
+                end
+                include Common::TwoD
+                def z
+                    @items[2]
+                end
+                def z=(z)
+                    @items[2]=z
+                end
+            end
+        end
+    end
+    
     module Methods
 
-        class Vector
+        class MultiValue
             attr_reader :name
             def initialize( items, name='' )
                 @name = name
@@ -275,53 +334,55 @@ module Povray
                 @items.concat items
             end
             def to_s
-                "#{name}#{name.length>0?' ':''}<#{@items.join(',')}>"
+                "#{name}#{name.length>0?' ':''}#{@items.join(',')}"
             end
         end
 
-        class VectorRadius < Vector
-            def initialize( items, radius, name='' )
-                super( items, '' )
-                @radius = radius
+        class Vector < MultiValue
+            def initialize( vector, name='' )
+                super( [vector], '' )
             end
+        end
+
+        class VectorRadius < MultiValue
+            def initialize( vector, radius, name='' )
+                super( [vector,radius] )
+            end
+        end
+
+        class Location < DataTypes::Vector::ThreeD
             def to_s
-                "#{super}, #{@radius}"
+                "location #{super}"
             end
         end
 
-        class Location < Vector
-            def initialize( location )
-                super( location, 'location' )
+        class Rotate < DataTypes::Vector::ThreeD
+            def to_s
+                "rotate #{super}"
             end
         end
 
-        class Rotate < Vector
-            def initialize( vector )
-                super( vector, 'rotate' )
+        class Scale < DataTypes::Vector::ThreeD
+            def to_s
+                "scale #{super}"
             end
         end
 
-        class Scale < Vector
-            def initialize( vector )
-                super( vector, 'scale' )
+        class Translate < DataTypes::Vector::ThreeD
+            def to_s
+                "translate #{super}"
             end
         end
 
-        class Translate < Vector
-            def initialize( vector )
-                super( vector, 'translate' )
+        class LookAt < DataTypes::Vector::ThreeD
+            def to_s
+                "look_at #{super}"
             end
         end
 
-        class LookAt < Vector
-            def initialize( lookat )
-                super( lookat, 'look_at' )
-            end
-        end
-
-        class Direction < Vector
-            def initialize( lookat )
-                super( lookat, 'direction' )
+        class Direction < DataTypes::Vector::ThreeD
+            def to_s
+                "direction #{super}"
             end
         end
 
@@ -334,30 +395,30 @@ module Povray
             end
         end
 
-        class ColourRGB < Vector
-            def initialize( rgb )
-                super( rgb, 'rgb' )
+        class ColourRGB < Colour
+            def to_s
+                "rgb #{@colour}"
             end
         end
 
-        class ColourRGBF < Vector
-            def initialize( rgbf )
-                super( rgbf, 'rgbf' )
+        class ColourRGBF < Colour
+            def to_s
+                "rgbf #{@colour}"
             end
         end
 
-        class ColourRGBT < Vector
-            def initialize( rgbt )
-                super( rgbt, 'rgbt' )
+        class ColourRGBT < Colour
+            def to_s
+                "rgbt #{@colour}"
             end
         end
 
-        class ColourRGBFT < Vector
-            def initialize( rgbft )
-                super( rgbft, 'rgbft' )
+        class ColourRGBFT < Colour
+            def to_s
+                "rgbft #{@colour}"
             end
         end
-        
+
         class Reflection
             def initialize( colour )
                 @colour = colour

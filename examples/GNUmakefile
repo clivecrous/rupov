@@ -3,16 +3,19 @@ HEIGHT = 600
 
 POVRAY = povray -D Width=$(WIDTH) Height=$(HEIGHT)
 
+PNGFILES = $(subst .rb,.png,$(wildcard *.rb))
+POVFILES = $(subst .rb,.pov,$(wildcard *.rb))
+
 .PHONY: all clean
 
 default: all
 
-all: $(subst .rb,.png, $(wildcard *.rb) )
+all: $(PNGFILES)
 
-%.png: %.pov
+$(PNGFILES): %.png: %.pov
 	$(POVRAY) $<
 
-%.pov: %.rb genericscene.rb ../rupov/povray.rb
+$(POVFILES): %.pov: %.rb include/genericscene.rb ../rupov/povray.rb
 	ruby $< >$@
 
 clean:
