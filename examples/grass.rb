@@ -48,11 +48,12 @@ ground << Pigments::SolidColour.new( ColourRGB.new( [0.6,0.4,0] ) )
 
 scene << ground
 
+print scene
+
 (0..1500).each do |num|
     grass =grassBlade( 8+rand()*4, 0.1, 25+rand()*20, 10)
     grass << Rotate.new( [0,rand()*360,0] )
     grass << Translate.new( [rand()*50,0,rand()*50] )
-    scene << grass
+    print grass
 end
 
-print scene
