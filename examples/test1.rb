@@ -26,8 +26,7 @@ radius = 20.0
     sphere = Sphere.new([degrees/50.0-12.5, 1+radius*Math::cos(Math::PI*degrees/180.0), 2+radius*Math::sin(Math::PI*degrees/180.0)], 0.5)
 
     texture = Texture.new()
-    pigment = Pigment.new()
-    pigment << Colour.new( ColourRGB.new( [ degrees/720.0,1,0.5 ] ) ) 
+    pigment = Pigments::SolidColour.new( Colour.new( ColourRGB.new( [ degrees/720.0,1,0.5 ] ) ) )
     texture << pigment
 
     sphere << texture

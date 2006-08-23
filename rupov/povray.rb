@@ -179,9 +179,18 @@ module Povray
             end
         end
 
-        class Pigment < Base
-            def initialize
-                super( 'pigment' )
+        module Pigments
+            class Pigment < Base
+                def initialize
+                    super( 'pigment' )
+                end
+            end
+
+            class SolidColour < Pigment
+                def initialize( colour )
+                    super()
+                    self << colour
+                end
             end
         end
 
