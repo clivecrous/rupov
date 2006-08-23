@@ -120,12 +120,6 @@ module Povray
                 end
             end
         end
-            
-        class Camera < Base
-            def initialize
-                super( 'camera' )
-            end
-        end
     end
 
     module LightSources
@@ -156,6 +150,23 @@ module Povray
             def initialize( colour )
                 super( 'background' )
                 self << colour
+            end
+        end
+    end
+
+    module Camera
+        class Camera < Base
+            def initialize
+                super( 'camera' )
+            end
+        end
+
+        class Basic < Camera
+            def initialize( location, direction )
+                # direct could be Methods::LookAt or Methods::Direction
+                super()
+                self << location
+                self << direction
             end
         end
     end
@@ -254,6 +265,12 @@ module Povray
         class LookAt < Vector
             def initialize( lookat )
                 super( lookat, 'look_at' )
+            end
+        end
+
+        class Direction < Vector
+            def initialize( lookat )
+                super( lookat, 'direction' )
             end
         end
 
