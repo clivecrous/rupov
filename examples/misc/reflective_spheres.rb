@@ -35,7 +35,7 @@ scene << '#include "textures.inc"'
 scene << '#include "glass.inc"'
 
 scene << Background.new( Colour.new( "Black" ) )
-scene << Camera::Basic.new( Location.new( 15, 15, 20 ), LookAt.new( 0, 0, 0 ) )
+scene << Camera::Basic.new( Location.new( Povray::DataTypes::Vector::XYZ.new(15, 15, 20) ), LookAt.new( Povray::DataTypes::Vector::XYZ.new(0, 0, 0) ) )
 
 scene << PointLight.new( Povray::DataTypes::Vector::XYZ.new( -12,20,13 ), Colour.new( "White" ) )
 scene << PointLight.new( Povray::DataTypes::Vector::XYZ.new( 12,-10,130 ), Colour.new( "White" ) )

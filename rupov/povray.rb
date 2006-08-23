@@ -459,81 +459,75 @@ module Povray
             end
         end
 
-        class Location < DataTypes::Vector::XYZ
-            def to_s
-                "location #{super}"
+        class Location < MultiValue
+            def initialize( location )
+                super( [location], 'location' )
             end
         end
 
-        class Rotate < DataTypes::Vector::XYZ
-            def to_s
-                "rotate #{super}"
+        class Rotate < MultiValue
+            def initialize( rotate )
+                super( [rotate], 'rotate' )
             end
         end
 
-        class Scale < DataTypes::Vector::XYZ
-            def to_s
-                "scale #{super}"
+        class Scale < MultiValue
+            def initialize( scale )
+                super( [scale], 'scale' )
             end
         end
 
-        class Translate < DataTypes::Vector::XYZ
-            def to_s
-                "translate #{super}"
+        class Translate < MultiValue
+            def initialize( translate )
+                super( [translate], 'translate' )
             end
         end
 
-        class LookAt < DataTypes::Vector::XYZ
-            def to_s
-                "look_at #{super}"
+        class LookAt < MultiValue
+            def initialize( lookAt )
+                super( [lookAt], 'look_at' )
             end
         end
 
-        class Direction < DataTypes::Vector::XYZ
-            def to_s
-                "direction #{super}"
+        class Direction < MultiValue
+            def initialize( direction )
+                super( [direction], 'direction' )
             end
         end
 
-        class Colour
+        class Colour < MultiValue
             def initialize( colour )
-                @colour = colour
-            end
-            def to_s
-                "colour #{@colour}"
+                super( [colour], 'colour' )
             end
         end
 
-        class ColourRGB < Colour
-            def to_s
-                "rgb #{@colour}"
-            end
-        end
-
-        class ColourRGBF < Colour
-            def to_s
-                "rgbf #{@colour}"
-            end
-        end
-
-        class ColourRGBT < Colour
-            def to_s
-                "rgbt #{@colour}"
-            end
-        end
-
-        class ColourRGBFT < Colour
-            def to_s
-                "rgbft #{@colour}"
-            end
-        end
-
-        class Reflection
+        class ColourRGB < MultiValue
             def initialize( colour )
-                @colour = colour
+                super( [colour], 'rgb' )
             end
-            def to_s
-                "reflection #{@colour}"
+        end
+
+        class ColourRGBF < MultiValue
+            def initialize( colour )
+                super( [colour], 'rgbf' )
+            end
+        end
+
+        class ColourRGBT < MultiValue
+            def initialize( colour )
+                super( [colour], 'rgbt' )
+            end
+        end
+
+        class ColourRGBFT < MultiValue
+            def initialize( colour )
+                super( [colour], 'rgbft' )
+            end
+        end
+
+        class Reflection < MultiValue
+            def initialize( colour )
+                super( [colour], 'reflection' )
             end
         end
 

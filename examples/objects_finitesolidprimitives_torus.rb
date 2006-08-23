@@ -8,7 +8,7 @@ torus =
 
 torus << Povray::Textures::Pigments::SolidColour.new( Povray::Methods::Colour.new( "Yellow" ) )
 
-torus << Povray::Methods::Translate.new( 0, 0.5, 0)
+torus << Povray::Methods::Translate.new( Povray::DataTypes::Vector::XYZ.new( 0, 0.5, 0 ))
 
 scene << torus
 

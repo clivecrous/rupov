@@ -9,7 +9,7 @@ class Scene < Povray::Group
     def initialize
         super()
         self << '#include "colors.inc"'
-        self << Camera::Basic.new( Location.new( 2,1.5,2 ), LookAt.new( 0,0,0 ) )
+        self << Camera::Basic.new( Location.new( Povray::DataTypes::Vector::XYZ.new(2,1.5,2) ), LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0,0) ) )
         self << LightSources::PointLight.new( Povray::DataTypes::Vector::XYZ.new( 2,5,5 ), Colour.new( "White" ) )
         floor = Plane.new( Povray::DataTypes::Vector::XYZ.new( 0,1,0 ), 0 )
         checker = Texture.new()

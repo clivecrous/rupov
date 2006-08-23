@@ -47,7 +47,7 @@ scene = Povray::Group.new()
 scene << '#include "colors.inc"'
 
 scene << Background.new( Colour.new( "Black" ) )
-scene << Camera::Basic.new( Location.new( 35, 20, 50 ), LookAt.new( 25, -15, 15 ) )
+scene << Camera::Basic.new( Location.new( Povray::DataTypes::Vector::XYZ.new(35, 20, 50) ), LookAt.new( Povray::DataTypes::Vector::XYZ.new(25, -15, 15) ) )
 
 scene << PointLight.new( Povray::DataTypes::Vector::XYZ.new( 25,20,60 ), Colour.new( "White" ) )
 # scene << PointLight.new( Povray::DataTypes::Vector::XYZ.new( 0,30,10 ), Colour.new( "White" ) )
@@ -65,8 +65,8 @@ print scene
 
 (0..3500).each do |num|
     grass =grassBlade( 8+rand()*4, 0.1, 25+rand()*20, 20)
-    grass << Rotate.new( 0,rand()*90+110,0 )
-    grass << Translate.new( rand()*50,0,rand()*50 )
+    grass << Rotate.new( Povray::DataTypes::Vector::XYZ.new(0,rand()*90+110,0) )
+    grass << Translate.new( Povray::DataTypes::Vector::XYZ.new(rand()*50,0,rand()*50) )
     print grass
 end
 
