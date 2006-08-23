@@ -61,6 +61,13 @@ module Povray
             end
         end
         
+        class Torus < Base
+            def initialize( majorRadius, minorRadius )
+                super( 'torus')
+                self << "#{majorRadius}, #{minorRadius}"
+            end
+        end
+        
         class Sphere < Base
             def initialize
                 super( 'sphere' )
