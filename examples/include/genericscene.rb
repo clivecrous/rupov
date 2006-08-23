@@ -6,9 +6,9 @@ class Scene < Povray::Group
         include Textures
         include Pigments
         include Methods
-        def initialize( normal, offset)
+        def initialize( rotate, translate )
             super()
-            wall = Plane.new( normal, offset)
+            wall = Plane.new( DataTypes::Vector::XYZ.new(0,0,-1),2 )
             texture = Texture.new()
             texture << SolidColour.new( Colour.new( DataTypes::Vector::RGB.new(1,0.95,0.9) ) )
             normalCrackle = Normal.new()
@@ -20,6 +20,10 @@ class Scene < Povray::Group
             finish << MultiValue.new([0.5],'roughness')
             texture << finish
             wall << texture
+
+            wall << Rotate.new( rotate )
+            wall << Translate.new( translate )
+
             self << wall
         end
     end
@@ -55,7 +59,12 @@ class Scene < Povray::Group
         floor << finish
 
         self << floor 
-        self << Wall.new( Povray::DataTypes::Vector::XYZ.new( 0,0,-1), 2)
-        self << Wall.new( Povray::DataTypes::Vector::XYZ.new( -1,0,0), 2)
+
+        self << Wall.new(
+                    Povray::DataTypes::Vector::XYZ.new( 0,0,0),
+                    Povray::DataTypes::Vector::XYZ.new(0,0,-1) )
+        self << Wall.new(
+                    Povray::DataTypes::Vector::XYZ.new( 0,90,0),
+                    Povray::DataTypes::Vector::XYZ.new(-1,0,0) )
     end
 end
