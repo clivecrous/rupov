@@ -79,11 +79,16 @@ module Povray
             end
 
             class Torus < Base
-                # FIXME: dated
                 def initialize( majorRadius, minorRadius, sturm = false )
                     super( 'torus')
-                    self << "#{majorRadius}, #{minorRadius}"
-                    self << "sturm" if sturm
+                    self << Methods::MultiValue.new([majorRadius,minorRadius])
+                    @sturm = sturm
+                end
+                def to_s
+                    self << "sturm" if @sturm
+                    result = super()
+                    self.pop() if @sturm
+                    result
                 end
             end
         end
