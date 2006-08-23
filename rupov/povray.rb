@@ -60,6 +60,7 @@ module Povray
                 def initialize( points, splineType = "linear_spline", sturm = false )
                     super( 'lathe' )
                     self << "#{splineType} #{points.length}, #{points.join(', ')}"
+                    self << "sturm" if sturm
                 end
             end
             
