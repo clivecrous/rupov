@@ -37,9 +37,11 @@ class Scene < Povray::Group
         radiosity = Base.new('radiosity')
         global_settings << radiosity
         self << global_settings
+
         self << Camera::Basic.new(
-                    Location.new( Povray::DataTypes::Vector::XYZ.new(2,1.5,2) ),
-                    LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0,0) ) )
+                    Location.new( Povray::DataTypes::Vector::XYZ.new(1,1.25,2) ),
+                    LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0.25,0) ) )
+
         self << LightSources::PointLight.new(
                     Povray::DataTypes::Vector::XYZ.new( 2,5,5 ), Colour.new( "White" ) )
 
@@ -49,7 +51,7 @@ class Scene < Povray::Group
         checker << Scale.new( 0.3 )
         floor << checker
         finish = Finish.new()
-        finish << Reflection.new( 0.5 )
+        finish << Reflection.new( 0.3 )
         floor << finish
 
         self << floor 
