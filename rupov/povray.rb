@@ -42,6 +42,7 @@ module Povray
                 super( 'cone' )
                 self << Methods::VectorRadius.new( leftCentre, leftRadius )
                 self << Methods::VectorRadius.new( rightCentre, rightRadius )
+                self << "open" if open
             end
         end
 
