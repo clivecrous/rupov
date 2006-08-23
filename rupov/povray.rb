@@ -159,5 +159,15 @@ module Povray
             end
         end
         
+        class Checker
+            def initialize( colour1, colour2 )
+                @colour1 = colour1
+                @colour2 = colour2
+            end
+            def to_s
+                "checker #{@colour1}, #{@colour2}"
+            end
+
+        end
     end
 end
