@@ -38,8 +38,23 @@ class Scene < Povray::Group
             sideboard_cutout << sideboard_miniblock
             sideboard_cutout << sideboard_cutoutinner
             sideboard << sideboard_cutout
+
             texture = Texture.new()
-            texture << SolidColour.new( Colour.new( DataTypes::Vector::RGB.new(0.75,0.5,0) ) )
+            pigment = Pigment.new()
+            pigment << "P_WoodGrain3A"
+            colour_map = Base.new('colour_map')
+            colour_map << "M_Teak"
+            pigment << colour_map
+            pigment << Scale.new( 0.5 )
+            pigment << Rotate.new( DataTypes::Vector::XYZ.new(75,60,90) )
+            texture << pigment
+            finish = Finish.new()
+            finish << "diffuse 0.8"
+            finish << "ambient 0.2"
+            finish << "roughness 0.2"
+            finish << "phong 1"
+            texture << finish
+
             sideboard << texture
             sideboard_cutout << texture
             
@@ -62,6 +77,8 @@ class Scene < Povray::Group
     def initialize
         super()
         self << Include.new('colors.inc')
+        self << Include.new('woods.inc')
+        self << Include.new('teak.map')
         global_settings = Base.new('global_settings')
         radiosity = Base.new('radiosity')
         global_settings << radiosity
@@ -77,7 +94,10 @@ class Scene < Povray::Group
         floor = Plane.new( Povray::DataTypes::Vector::XYZ.new( 0,1,0 ), 0)
         checker = Texture.new()
         checker << Checker.new( Colour.new( "White" ), Colour.new( "Blue" ) )
-        checker << Scale.new( 0.3 )
+        checker << Scale.new( 1.7 )
+        finish = Finish.new()
+        finish << "reflection { 0.3 }"
+        checker << finish
         floor << checker
 
         self << floor 
