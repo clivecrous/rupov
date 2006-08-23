@@ -1,7 +1,7 @@
 require '../rupov/povray.rb'
 require 'include/genericscene.rb'
 
-put Scene.new() { |scene|
+puts Scene.new() { |scene|
     scene << Povray::Objects::FiniteSolidPrimitives::Box.new(
             Povray::DataTypes::Vector::XYZ.new( -0.5,0,-0.5 ),
             Povray::DataTypes::Vector::XYZ.new(  0.5,1, 0.5 ) ) { |box|
