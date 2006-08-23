@@ -105,6 +105,22 @@ module Povray
         end
     end
 
+    module CSG
+
+        class Difference < Base
+            def initialize
+                super( 'difference' )
+            end
+        end
+        
+        class Union < Base
+            def initialize
+                super( 'union' )
+            end
+        end
+        
+    end
+
     module Methods
 
         class Vector
