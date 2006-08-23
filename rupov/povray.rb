@@ -34,8 +34,8 @@ module Povray
             class Box < Base
                 def initialize( lowerLeftCorner, upperRightCorner )
                     super( 'box' )
-                    self << Methods::Vector.new( lowerLeftCorner)
-                    self << Methods::Vector.new( upperRightCorner )
+                    self << lowerLeftCorner
+                    self << upperRightCorner
                 end
             end
 
