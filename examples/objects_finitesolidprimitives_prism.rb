@@ -1,7 +1,7 @@
 require '../rupov/povray.rb'
 require 'include/genericscene.rb'
 
-scene = Scene.new() { |scene|
+puts Scene.new() { |scene|
     scene << Povray::Objects::FiniteSolidPrimitives::Prism.new(
             0,1,
             [
@@ -18,5 +18,3 @@ scene = Scene.new() { |scene|
         prism << Povray::Methods::Translate.new( Povray::DataTypes::Vector::XYZ.new(-0.2,0,-0.2) )
     }
 }
-
-puts scene

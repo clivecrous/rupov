@@ -1,8 +1,7 @@
 require '../rupov/povray.rb'
 require 'include/genericscene.rb'
 
-scene = Scene.new() { |scene|
-
+puts Scene.new() { |scene|
     scene << Povray::Objects::FinitePatchPrimitives::Polygon.new(
             [   Povray::DataTypes::Vector::XY.new( 0,0 ),
                 Povray::DataTypes::Vector::XY.new( 0,6 ),
@@ -22,5 +21,3 @@ scene = Scene.new() { |scene|
         polygon << Povray::Methods::MultiValue.new( [Povray::DataTypes::Vector::XYZ.new( 0,225,0 )], "rotate" )
     }
 }
-
-puts scene

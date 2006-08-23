@@ -1,7 +1,7 @@
 require '../rupov/povray.rb'
 require 'include/genericscene.rb'
 
-scene = Scene.new() { |scene|
+puts Scene.new() { |scene|
     scene << Povray::Objects::FiniteSolidPrimitives::Lathe.new(
             [
                 Povray::DataTypes::Vector::XY.new( 0,0 ),
@@ -15,5 +15,3 @@ scene = Scene.new() { |scene|
         lathe << Povray::Methods::MultiValue.new( [0.2], 'scale' )
     }
 }
-
-puts scene
