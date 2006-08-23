@@ -1,7 +1,7 @@
 WIDTH = 800
 HEIGHT = 600
 
-POVRAY = povray Width=$(WIDTH) Height=$(HEIGHT)
+POVRAY = povray -D Width=$(WIDTH) Height=$(HEIGHT)
 
 .PHONY: all clean
 
