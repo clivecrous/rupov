@@ -32,17 +32,28 @@ class Scene < Povray::Group
     include Methods
     def initialize
         super()
-        self << '#include "colors.inc"'
-        self << Camera::Basic.new( Location.new( Povray::DataTypes::Vector::XYZ.new(2,1.5,2) ), LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0,0) ) )
-        self << LightSources::PointLight.new( Povray::DataTypes::Vector::XYZ.new( 2,5,5 ), Colour.new( "White" ) )
-        floor = Plane.new( Povray::DataTypes::Vector::XYZ.new( 0,1,0 ), 0 )
+        self << Include.new('colors.inc')
+        global_settings = Base.new('global_settings')
+        radiosity = Base.new('radiosity')
+        global_settings << radiosity
+        self << global_settings
+        self << Camera::Basic.new(
+                    Location.new( Povray::DataTypes::Vector::XYZ.new(2,1.5,2) ),
+                    LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0,0) ) )
+        self << LightSources::PointLight.new(
+                    Povray::DataTypes::Vector::XYZ.new( 2,5,5 ), Colour.new( "White" ) )
+
+        floor = Plane.new( Povray::DataTypes::Vector::XYZ.new( 0,1,0 ), 0)
         checker = Texture.new()
         checker << Checker.new( Colour.new( "White" ), Colour.new( "Blue" ) )
+        checker << Scale.new( 0.3 )
         floor << checker
         finish = Finish.new()
-        finish << MultiValue.new([0.6],"diffuse")
-        finish << MultiValue.new([0.4],"ambient")
+        finish << Reflection.new( 0.5 )
         floor << finish
-        self << floor
+
+        self << floor 
+        self << Wall.new( Povray::DataTypes::Vector::XYZ.new( 0,0,-1), 2)
+        self << Wall.new( Povray::DataTypes::Vector::XYZ.new( -1,0,0), 2)
     end
 end
