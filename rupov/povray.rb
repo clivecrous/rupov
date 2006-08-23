@@ -192,6 +192,31 @@ module Povray
                     self << colour
                 end
             end
+
+            class ColourList < Pigment
+                def initialize( type, list )
+                    super()
+                    self << "#{type} #{list.join(',')}"
+                end
+            end
+
+            class Brick < ColourList
+                def initialize( colour1, colour2 )
+                    super( "brick", [colour1,colour2] )
+                end
+            end
+
+            class Checker < ColourList
+                def initialize( colour1, colour2 )
+                    super( "checker", [colour1,colour2] )
+                end
+            end
+
+            class Hexagon < ColourList
+                def initialize( colour1, colour2, colour3 )
+                    super( "hexagon", [colour1,colour2,colour3] )
+                end
+            end
         end
 
         class Normal < Base
@@ -328,15 +353,5 @@ module Povray
             end
         end
         
-        class Checker
-            def initialize( colour1, colour2 )
-                @colour1 = colour1
-                @colour2 = colour2
-            end
-            def to_s
-                "checker #{@colour1}, #{@colour2}"
-            end
-
-        end
     end
 end
