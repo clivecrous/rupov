@@ -9,7 +9,7 @@ module Povray
         end
         def to_s
             result = "#{name}#{name.length>0?' ':''}{\n"
-            @children.each { |child| child.to_s.each { |line| result << " "*4+line.rstrip+"\n" } }
+            @children.each { |child| result << child.to_s.rstrip+"\n" }
             result << "}"
             result
         end
@@ -24,9 +24,9 @@ module Povray
             yield(self) if block_given? and self.class == Group
         end
         def to_s
-            children = ''
-            @children.each { |child| child.to_s.each { |line| children += line.rstrip+"\n" } }
-            "#{children}"
+            result = ''
+            @children.each { |child| result << child.to_s.rstrip+"\n" }
+            result
         end
     end
 
