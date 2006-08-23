@@ -63,6 +63,7 @@ module Povray
             end
 
             class Lathe < Base
+                # FIXME: dated
                 def initialize( points, splineType = "linear_spline", sturm = false )
                     super( 'lathe' )
                     self << "#{splineType} #{points.length}, #{points.join(', ')}"
@@ -78,6 +79,7 @@ module Povray
             end
 
             class Torus < Base
+                # FIXME: dated
                 def initialize( majorRadius, minorRadius, sturm = false )
                     super( 'torus')
                     self << "#{majorRadius}, #{minorRadius}"
@@ -88,6 +90,7 @@ module Povray
 
         module FinitePatchPrimitives
             class Disc < Base
+                # FIXME: dated
                 def initialize( centre, normal, radius, holeRadius=0.0 )
                     super( 'disc' )
                     initline = "#{centre}, #{normal}, #{radius}"
@@ -97,6 +100,7 @@ module Povray
             end
 
             class Polygon < Base
+                # FIXME: dated
                 def initialize( points )
                     super( 'polygon' )
                     self << "#{points.length}, #{points.join(', ')}"
@@ -104,6 +108,7 @@ module Povray
             end
 
             class Triangle < Base
+                # FIXME: dated
                 def initialize( corner1, corner2, corner3 )
                     super( 'triangle' )
                     self << "#{corner1}, #{corner2}, #{corner3}"
@@ -111,6 +116,7 @@ module Povray
             end
 
             class SmoothTriangle < Base
+                # FIXME: dated
                 def initialize( corner1, normal1, corner2, normal2, corner3, normal3 )
                     super( 'smooth_triangle' )
                     self << "#{corner1}, #{normal1}, #{corner2}, #{normal2}, #{corner3}, #{normal3}"
@@ -120,6 +126,7 @@ module Povray
         
         module InfiniteSolidPrimitives
             class Plane < Base
+                # FIXME: dated
                 def initialize( normal, distance )
                     super( 'plane' )
                     self << "#{normal}, #{distance}"
@@ -200,6 +207,7 @@ module Povray
             end
 
             class ColourList < Pigment
+                # FIXME: dated
                 def initialize( type, list )
                     super()
                     self << "#{type} #{list.join(',')}"
