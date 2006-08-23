@@ -17,7 +17,8 @@ prism =
         ] )
 
 prism << Povray::Textures::Pigments::SolidColour.new( Povray::Methods::Colour.new( "Yellow" ) )
-prism << Povray::Methods::MultiValue.new( [0.2], 'scale' )
+prism << Povray::Methods::Scale.new( 0.15 )
+prism << Povray::Methods::Translate.new( Povray::DataTypes::Vector::XYZ.new(-0.2,0,-0.2) )
 
 scene << prism
 
