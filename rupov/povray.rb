@@ -574,6 +574,12 @@ module Povray
             end
         end
 
+        class Threshold < MultiValue
+            def initialize( threshold )
+                super( [threshold], 'threshold' )
+            end
+        end
+
         class Translate < MultiValue
             def initialize( translate )
                 super( [translate], 'translate' )
