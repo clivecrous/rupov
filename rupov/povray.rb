@@ -63,11 +63,16 @@ module Povray
             end
 
             class Lathe < Base
-                # FIXME: dated
                 def initialize( points, splineType = "linear_spline", sturm = false )
                     super( 'lathe' )
-                    self << "#{splineType} #{points.length}, #{points.join(', ')}"
-                    self << "sturm" if sturm
+                    self << Methods::MultiValue.new( [points.length]+points, splineType )
+                    @sturm = sturm
+                end
+                def to_s
+                    self << "sturm" if @sturm
+                    result = super()
+                    self.pop() if @sturm
+                    result
                 end
             end
             
