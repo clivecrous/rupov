@@ -42,8 +42,8 @@ module Povray
             class Cone < Base
                 def initialize( leftCentre, leftRadius, rightCentre, rightRadius, open = false )
                     super( 'cone' )
-                    self << Methods::VectorRadius.new( leftCentre, leftRadius )
-                    self << Methods::VectorRadius.new( rightCentre, rightRadius )
+                    self << "#{leftCentre},#{leftRadius}"
+                    self << "#{rightCentre},#{rightRadius}"
                     self << "open" if open
                 end
             end
@@ -116,7 +116,7 @@ module Povray
             class Plane < Base
                 def initialize( normal, distance )
                     super( 'plane' )
-                    self << Methods::VectorRadius.new( normal, distance )
+                    self << "#{normal}, #{distance}"
                 end
             end
         end
