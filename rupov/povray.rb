@@ -82,9 +82,9 @@ module Povray
 
         module InfiniteSolidPrimitives
             class Plane < Base
-                def initialize( vector, displacement )
+                def initialize( normal, distance )
                     super( 'plane' )
-                    self << Methods::VectorRadius.new( vector, displacement )
+                    self << Methods::VectorRadius.new( normal, distance )
                 end
             end
         end
