@@ -48,12 +48,6 @@ class Scene < Povray::Group
             pigment << Scale.new( 0.5 )
             pigment << Rotate.new( DataTypes::Vector::XYZ.new(75,60,90) )
             texture << pigment
-            finish = Finish.new()
-            finish << "diffuse 0.8"
-            finish << "ambient 0.1"
-            finish << "roughness 0.5"
-            finish << "phong 1"
-            texture << finish
 
             sideboard << texture
             sideboard_cutout << texture
