@@ -73,7 +73,8 @@ class Scene < Povray::Group
         self << Include.new('woods.inc')
         self << Include.new('teak.map')
         global_settings = Base.new('global_settings') { |this|
-            this << Base.new('radiosity')
+            # XXX Uncomment the line below to activate radiosity
+            # this << Base.new('radiosity')
         }
         self << global_settings
 
