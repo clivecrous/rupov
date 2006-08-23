@@ -121,12 +121,6 @@ module Povray
             end
         end
             
-        class LightSource < Base
-            def initialize
-                super( 'light_source' )
-            end
-        end
-
         class Texture < Base
             def initialize
                 super( 'texture' )
@@ -150,6 +144,23 @@ module Povray
                 super( 'camera' )
             end
         end
+    end
+
+    module LightSources
+
+        class LightSource < Base
+            def initialize
+                super( 'light_source' )
+            end
+        end
+
+        class PointLight < LightSource
+            def initialize( location, colour )
+                super()
+                self << "#{location}, #{colour}"
+            end
+        end
+
     end
 
     module CSG

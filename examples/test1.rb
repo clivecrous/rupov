@@ -2,6 +2,7 @@ require 'povray.rb'
 include Povray::Objects
 include FiniteSolidPrimitives
 include Povray::Methods
+include Povray::LightSources
 
 maingroup = Povray::Group.new()
 
@@ -12,9 +13,7 @@ camera = Camera.new()
 camera << Location.new( [0, 50, 0] )
 camera << LookAt.new( [0, 1, 2] )
 
-light = LightSource.new()
-light << Vector.new( [12,14,-13] )
-light << Colour.new( "White" )
+light = PointLight.new( Vector.new( [12,14,-13] ), Colour.new( "White" ) )
 
 maingroup << '#include "colors.inc"'
 maingroup << background
