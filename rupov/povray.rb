@@ -5,6 +5,7 @@ module Povray
         def initialize( name='' )
             @name = name
             @children = []
+            yield(self) if block_given? and self.class == Base
         end
         def to_s
             children = ''
@@ -19,6 +20,7 @@ module Povray
     class Group < Base
         def initialize
             super( '' )
+            yield(self) if block_given? and self.class == Group
         end
         def to_s
             children = ''
@@ -36,6 +38,7 @@ module Povray
                     super( 'box' )
                     self << lowerLeftCorner
                     self << upperRightCorner
+                    yield(self) if block_given? and self.class == Box
                 end
             end
 
@@ -45,6 +48,7 @@ module Povray
                     self << Methods::VectorRadius.new( leftCentre, leftRadius)
                     self << Methods::VectorRadius.new( rightCentre, rightRadius)
                     self << "open" if open
+                    yield(self) if block_given? and self.class == Cone
                 end
             end
 
@@ -53,6 +57,7 @@ module Povray
                     super( 'cylinder' )
                     self << Methods::MultiValue.new([leftCentre,rightCentre,radius])
                     @open = open
+                    yield(self) if block_given? and self.class == Cylinder
                 end
                 def to_s
                     self << "open" if @open
@@ -67,6 +72,7 @@ module Povray
                     super( 'lathe' )
                     self << Methods::MultiValue.new( [points.length]+points, splineType )
                     @sturm = sturm
+                    yield(self) if block_given? and self.class == Lathe
                 end
                 def to_s
                     self << "sturm" if @sturm
@@ -82,6 +88,7 @@ module Povray
                     self << Methods::MultiValue.new( [height1,height2,points.length]+points, splineType+" "+sweepType )
                     @open = open
                     @sturm = sturm
+                    yield(self) if block_given? and self.class == Prism
                 end
                 def to_s
                     self << "open" if @open
@@ -97,6 +104,7 @@ module Povray
                 def initialize( centre, radius )
                     super( 'sphere' )
                     self << Methods::VectorRadius.new( centre, radius)
+                    yield(self) if block_given? and self.class == Sphere
                 end
             end
 
@@ -105,6 +113,7 @@ module Povray
                     super( 'torus')
                     self << Methods::MultiValue.new([majorRadius,minorRadius])
                     @sturm = sturm
+                    yield(self) if block_given? and self.class == Torus
                 end
                 def to_s
                     self << "sturm" if @sturm
@@ -122,6 +131,7 @@ module Povray
                     multivalue = [centre,normal,radius]
                     multivalue << holeRadius if holeRadius != 0.0
                     self << Methods::MultiValue.new( multivalue )
+                    yield(self) if block_given? and self.class == Disc
                 end
             end
 
@@ -129,6 +139,7 @@ module Povray
                 def initialize( points )
                     super( 'polygon' )
                     self << Methods::MultiValue.new( [points.length]+points )
+                    yield(self) if block_given? and self.class == Polygon
                 end
             end
 
@@ -136,6 +147,7 @@ module Povray
                 def initialize( corner1, corner2, corner3 )
                     super( 'triangle' )
                     self << Methods::MultiValue.new( [ corner1, corner2, corner3 ] )
+                    yield(self) if block_given? and self.class == Triangle
                 end
             end
 
@@ -146,6 +158,7 @@ module Povray
                         [   corner1, normal1,
                             corner2, normal2,
                             corner3, normal3 ] )
+                    yield(self) if block_given? and self.class == SmoothTriangle
                 end
             end
         end
@@ -155,6 +168,7 @@ module Povray
                 def initialize( normal, distance=0 )
                     super( 'plane' )
                     self << Methods::MultiValue.new([normal,distance])
+                    yield(self) if block_given? and self.class == Plane
                 end
             end
         end
@@ -214,6 +228,7 @@ module Povray
         class Texture < Base
             def initialize
                 super( 'texture' )
+                yield(self) if block_given? and self.class == Texture
             end
         end
 
@@ -221,6 +236,7 @@ module Povray
             class Pigment < Base
                 def initialize
                     super( 'pigment' )
+                    yield(self) if block_given? and self.class == Pigment
                 end
             end
 
@@ -260,12 +276,14 @@ module Povray
         class Normal < Base
             def initialize
                 super( 'normal')
+                yield(self) if block_given? and self.class == Normal
             end
         end
 
         class Finish < Base
             def initialize
                 super( 'finish' )
+                yield(self) if block_given? and self.class == Finish
             end
         end
 
@@ -276,24 +294,28 @@ module Povray
         class Difference < Base
             def initialize
                 super( 'difference' )
+                yield(self) if block_given? and self.class == Difference
             end
         end
         
         class Union < Base
             def initialize
                 super( 'union' )
+                yield(self) if block_given? and self.class == Union
             end
         end
 
         class Merge < Base
             def initialize
                 super( 'merge' )
+                yield(self) if block_given? and self.class == Merge
             end
         end
 
         class Intersection < Base
             def initialize
                 super( 'intersection' )
+                yield(self) if block_given? and self.class == Intersection
             end
         end
         
