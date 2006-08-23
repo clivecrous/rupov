@@ -25,7 +25,7 @@ def grassBlade( length, baseRadius, curve, segments)
         x2 = Math::sin( degrees )*((segment+1)*length/segments)
         y2 = Math::cos( degrees )*((segment+1)*length/segments)
         
-        cone = Cone.new( Vector.new( [x1,y1,0] ), (segments-segment)*baseRadius/segments, Vector.new( [x2,y2,0] ), (segments-(segment+1))*baseRadius/segments)
+        cone = Cone.new( VectorRadius.new( [x1,y1,0] , (segments-segment)*baseRadius/segments), VectorRadius.new( [x2,y2,0] , (segments-(segment+1))*baseRadius/segments))
         cone << $grassTexture
         blade << cone
     end
