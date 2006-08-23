@@ -40,10 +40,10 @@ module Povray
             end
 
             class Cone < Base
-                def initialize( leftCentre, leftRadius, rightCentre, rightRadius, open = false )
+                def initialize( leftCentreRadius, rightCentreRadius, open = false )
                     super( 'cone' )
-                    self << "#{leftCentre},#{leftRadius}"
-                    self << "#{rightCentre},#{rightRadius}"
+                    self << leftCentreRadius
+                    self << rightCentreRadius
                     self << "open" if open
                 end
             end
