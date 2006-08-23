@@ -16,7 +16,7 @@ module Povray
         end
     end
 
-    class File < Base
+    class Group < Base
         def initialize
             super( '' )
         end

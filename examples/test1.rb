@@ -2,7 +2,7 @@ require 'povray.rb'
 include Povray::Objects
 include Povray::Methods
 
-file = Povray::File.new()
+maingroup = Povray::Group.new()
 
 background = Background.new()
 background << Colour.new( "Black" )
@@ -15,9 +15,9 @@ light = LightSource.new()
 light << Vector.new( [12,14,-13] )
 light << Colour.new( "White" )
 
-file << '#include "colors.inc"'
-file << background
-file << camera
+maingroup << '#include "colors.inc"'
+maingroup << background
+maingroup << camera
 
 radius = 20.0
 
@@ -33,10 +33,10 @@ radius = 20.0
 
     sphere << texture
 
-    file << sphere
+    maingroup << sphere
     radius -= 0.05
 end
 
-file << light
+maingroup << light
 
-print file
+print maingroup
