@@ -119,6 +119,12 @@ module Povray
             end
         end
 
+        class Merge < Base
+            def initialize
+                super( 'merge' )
+            end
+        end
+
         class Intersection < Base
             def initialize
                 super( 'intersection' )
