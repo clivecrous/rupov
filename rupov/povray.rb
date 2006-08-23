@@ -546,6 +546,48 @@ module Povray
             end
         end
 
+        class Ambient < MultiValue
+            def initialize( ambient )
+                super( [ambient], 'ambient' )
+            end
+        end
+
+        class Brilliance < MultiValue
+            def initialize( brilliance )
+                super( [brilliance], 'brilliance' )
+            end
+        end
+
+        class Diffuse < MultiValue
+            def initialize( diffuse )
+                super( [diffuse], 'diffuse' )
+            end
+        end
+
+        class Metallic < MultiValue
+            def initialize
+                super( [], 'metallic' )
+            end
+        end
+
+        class Reflection < MultiValue
+            def initialize( reflection )
+                super( [reflection], 'reflection' )
+            end
+        end
+
+        class Roughness < MultiValue
+            def initialize( roughness )
+                super( [roughness], 'roughness' )
+            end
+        end
+
+        class Specular < MultiValue
+            def initialize( specular )
+                super( [specular], 'specular' )
+            end
+        end
+
         class Include < MultiValue
             def initialize( filename )
                 super( ["\"#{filename}\""], '#include' )
@@ -567,6 +609,12 @@ module Povray
         class Location < MultiValue
             def initialize( location )
                 super( [location], 'location' )
+            end
+        end
+
+        class Phong < MultiValue
+            def initialize( phong )
+                super( [phong], 'phong' )
             end
         end
 
