@@ -75,6 +75,23 @@ module Povray
                     result
                 end
             end
+
+            class Prism < Base
+                def initialize( height1, height2, points, splineType = "linear_spline", sweepType = "linear_sweep", open = false, sturm = false )
+                    super( 'prism' )
+                    self << Methods::MultiValue.new( [height1,height2,points.length]+points, splineType+" "+sweepType )
+                    @open = open
+                    @sturm = sturm
+                end
+                def to_s
+                    self << "open" if @open
+                    self << "sturm" if @sturm
+                    result = super()
+                    self.pop() if @sturm
+                    self.pop() if @open
+                    result
+                end
+            end
             
             class Sphere < Base
                 def initialize( centre, radius )
