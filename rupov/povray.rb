@@ -329,6 +329,30 @@ module Povray
                     @items[2]=z
                 end
             end
+            class Colour < Generic
+                def initialize( r, g, b)
+                    super( [r,g,b])
+                end
+                def r
+                    @items[0]
+                end
+                def r=(r)
+                    @items[0]=r
+                end
+
+                def g
+                    @items[1]
+                end
+                def g=(g)
+                    @items[1]=g
+                end
+                def b
+                    @items[2]
+                end
+                def b=(b)
+                    @items[2]=b
+                end
+            end
         end
     end
     
