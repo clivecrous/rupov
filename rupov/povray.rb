@@ -150,6 +150,15 @@ module Povray
                 end
             end
 
+            class Text < Base
+                def initialize( font, text, thickness, offset = 0 )
+                    super('text')
+                    # FIXME these values aren't dynamic
+                    self << Methods::MultiValue.new( [Methods::MultiValue.new( [Methods::MultiValue.new( [thickness, offset], "\"#{text}\"")] ,"\"#{font}\"")], 'ttf' )
+                    yield(self) if block_given? and self.class == Text
+                end
+            end
+
             class Torus < Base
                 def initialize( majorRadius, minorRadius, sturm = false )
                     super( 'torus')
