@@ -86,20 +86,26 @@ scene = Povray::Group.new { |scene|
             prerender << Povray::Atmosphere::Background.new( Povray::Methods::Colour.new( "White" ) )
         }.to_s
 
-        scene << Povray::Objects::FiniteSolidPrimitives::Blob.new( $threshold ) { |blob|
-            blob << Povray::Group.new { |prerender|
-                geo.each { |(x,y,z,mean)|
-                    colour = ((mean+0.5)*MaxColours).to_i
-                    colour=MaxColours if colour > MaxColours
-                    prerender << Povray::Objects::FiniteSolidPrimitives::Sphere.new(
-                       Povray::DataTypes::Vector::XYZ.new( x*Scale1,z*Scale3,y*Scale2 ), Radius ) { |sphere|
-                           sphere << (((mean+0.5)*MaxColours)**StrengthPower)/(MaxColours**StrengthPower)
-                           sphere << colours[colour]
-                    }
-                }
-            }.to_s
-            blob << Povray::Methods::Rotate.new( $rotation )
+        blob = Blob ? Povray::Objects::FiniteSolidPrimitives::Blob.new( $threshold ) : Povray::CSG::Union.new
+        geo.each { |(x,y,z,mean)|
+            colour = ((mean+0.5)*MaxColours).to_i
+            colour=MaxColours if colour > MaxColours
+            sphere = Povray::Objects::FiniteSolidPrimitives::Sphere.new(
+               Povray::DataTypes::Vector::XYZ.new( x*Scale1,z*Scale3,y*Scale2 ), Blob ? BlobRadius : (Radius*((((mean+0.5)*MaxColours)**StrengthPower)/(MaxColours**StrengthPower))).to_s+"*") { |sphere|
+                   sphere << $threshold if not Blob
+                   sphere << Povray::Group.new { |prerender|
+                       prerender << (((mean+0.5)*MaxColours)**StrengthPower)/(MaxColours**StrengthPower) if Blob
+                       prerender << colours[colour]
+                   }.to_s
+            }
+            if Blob
+                blob << sphere.to_s
+            else
+                blob << sphere
+            end
         }
+        blob << Povray::Methods::Rotate.new( $rotation )
+        scene << blob
 }
 
 (1..Frames).each { |frame|
