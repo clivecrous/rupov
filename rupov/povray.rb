@@ -131,10 +131,9 @@ module Povray
         
         module InfiniteSolidPrimitives
             class Plane < Base
-                # FIXME: dated
                 def initialize( normal, distance )
                     super( 'plane' )
-                    self << "#{normal}, #{distance}"
+                    self << Methods::MultiValue.new([normal,distance])
                 end
             end
         end
