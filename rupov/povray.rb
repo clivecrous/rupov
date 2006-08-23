@@ -353,5 +353,14 @@ module Povray
             end
         end
         
+        class Reflection
+            def initialize( colour )
+                @colour = colour
+            end
+            def to_s
+                "reflection #{@colour}"
+            end
+        end
+
     end
 end
