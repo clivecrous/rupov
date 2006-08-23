@@ -185,6 +185,18 @@ module Povray
             end
         end
 
+        class Normal < Base
+            def initialize
+                super( 'normal')
+            end
+        end
+
+        class Finish < Base
+            def initialize
+                super( 'finish' )
+            end
+        end
+
     end
     
     module CSG
