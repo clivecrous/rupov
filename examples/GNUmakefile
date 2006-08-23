@@ -12,7 +12,7 @@ all: $(subst .rb,.png, $(wildcard *.rb) )
 %.png: %.pov
 	$(POVRAY) $<
 
-%.pov: %.rb ../rupov/povray.rb
+%.pov: %.rb genericscene.rb ../rupov/povray.rb
 	ruby $< >$@
 
 clean:
