@@ -34,6 +34,14 @@ module Povray
 
         module FiniteSolidPrimitives
 
+            class Blob < Base
+                def initialize ( threshold )
+                    super( 'blob' )
+                    self << Methods::Threshold.new( threshold )
+                    yield(self) if block_given? and self.class == Blob
+                end
+            end
+
             class Box < Base
                 def initialize( lowerLeftCorner, upperRightCorner )
                     super( 'box' )
