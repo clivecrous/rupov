@@ -267,7 +267,12 @@ module Povray
             attr_reader :name
             def initialize( items, name='' )
                 @name = name
-                @items = items
+                @items = []
+                self.set( items )
+            end
+            def set( items )
+                @items.clear
+                @items.concat items
             end
             def to_s
                 "#{name}#{name.length>0?' ':''}<#{@items.join(',')}>"
