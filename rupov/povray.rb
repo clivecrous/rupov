@@ -210,10 +210,9 @@ module Povray
             end
 
             class ColourList < Pigment
-                # FIXME: dated
                 def initialize( type, list )
                     super()
-                    self << "#{type} #{list.join(',')}"
+                    self << Methods::MultiValue.new(list,type)
                 end
             end
 
