@@ -27,9 +27,10 @@ end
 puts Scene.new
 
 (1..1000).each do |num|
-    puts GrassBlade.new( 0.8+rand*0.4, 0.005, 25+rand*20, 10) do |blade|
+    GrassBlade.new( 0.8+rand*0.4, 0.005, 25+rand*20, 10) do |blade|
         blade << Povray::Methods::Rotate.new( Povray::DataTypes::Vector::XYZ.new(0,rand*90+110,0) )
         blade << Povray::Methods::Translate.new( Povray::DataTypes::Vector::XYZ.new(rand*1.5-0.75,0,rand*1.5-0.75) )
+        puts blade
     end
 end
 
