@@ -1,4 +1,4 @@
-module Povray
+module RuPov
 
     class Base
         attr_reader :name
