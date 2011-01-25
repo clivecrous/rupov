@@ -1,17 +1,17 @@
-require '../rupov/povray.rb'
-require 'include/genericscene.rb'
+require 'rupov'
+require './include/genericscene'
 
 puts Scene.new() { |scene|
-    scene << Povray::Objects::FiniteSolidPrimitives::Blob.new( 0.5 ) { |blob|
-        blob << Povray::Objects::FiniteSolidPrimitives::Sphere.new(
-                Povray::DataTypes::Vector::XYZ.new( -0.15, 0.5, -0.15), 0.45 ) { |sphere|
+    scene << RuPov::Objects::FiniteSolidPrimitives::Blob.new( 0.5 ) { |blob|
+        blob << RuPov::Objects::FiniteSolidPrimitives::Sphere.new(
+                RuPov::DataTypes::Vector::XYZ.new( -0.15, 0.5, -0.15), 0.45 ) { |sphere|
             sphere << 1 # It's blob strength
-            sphere << Povray::Textures::Pigments::SolidColour.new( Povray::Methods::Colour.new( "Yellow" ) )
+            sphere << RuPov::Textures::Pigments::SolidColour.new( RuPov::Methods::Colour.new( "Yellow" ) )
         }
-        blob << Povray::Objects::FiniteSolidPrimitives::Sphere.new(
-                Povray::DataTypes::Vector::XYZ.new(  0.15, 0.7,  0.15), 0.45 ) { |sphere|
+        blob << RuPov::Objects::FiniteSolidPrimitives::Sphere.new(
+                RuPov::DataTypes::Vector::XYZ.new(  0.15, 0.7,  0.15), 0.45 ) { |sphere|
             sphere << 1 # It's blob strength
-            sphere << Povray::Textures::Pigments::SolidColour.new( Povray::Methods::Colour.new( "Red" ) )
+            sphere << RuPov::Textures::Pigments::SolidColour.new( RuPov::Methods::Colour.new( "Red" ) )
         }
     }
 }

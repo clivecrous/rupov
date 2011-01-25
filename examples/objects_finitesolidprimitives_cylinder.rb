@@ -1,11 +1,11 @@
-require '../rupov/povray.rb'
-require 'include/genericscene.rb'
+require 'rupov'
+require './include/genericscene'
 
 puts Scene.new() { |scene|
-    scene << Povray::Objects::FiniteSolidPrimitives::Cylinder.new(
-            Povray::DataTypes::Vector::XYZ.new( 0,0,0),
-            Povray::DataTypes::Vector::XYZ.new(0,1,0),
+    scene << RuPov::Objects::FiniteSolidPrimitives::Cylinder.new(
+            RuPov::DataTypes::Vector::XYZ.new( 0,0,0),
+            RuPov::DataTypes::Vector::XYZ.new(0,1,0),
             0.5 ) { |cylinder|
-        cylinder << Povray::Textures::Pigments::SolidColour.new( Povray::Methods::Colour.new( "Yellow" ) )
+        cylinder << RuPov::Textures::Pigments::SolidColour.new( RuPov::Methods::Colour.new( "Yellow" ) )
     }
 }

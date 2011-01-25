@@ -1,10 +1,10 @@
-require '../rupov/povray.rb'
-require 'include/genericscene.rb'
+require 'rupov'
+require './include/genericscene'
 
 puts Scene.new() { |scene|
-    scene << Povray::Objects::FiniteSolidPrimitives::Box.new(
-            Povray::DataTypes::Vector::XYZ.new( -0.5,0,-0.5 ),
-            Povray::DataTypes::Vector::XYZ.new(  0.5,1, 0.5 ) ) { |box|
-        box << Povray::Textures::Pigments::SolidColour.new( Povray::Methods::Colour.new( "Yellow" ) )
+    scene << RuPov::Objects::FiniteSolidPrimitives::Box.new(
+            RuPov::DataTypes::Vector::XYZ.new( -0.5,0,-0.5 ),
+            RuPov::DataTypes::Vector::XYZ.new(  0.5,1, 0.5 ) ) { |box|
+        box << RuPov::Textures::Pigments::SolidColour.new( RuPov::Methods::Colour.new( "Yellow" ) )
     }
 }

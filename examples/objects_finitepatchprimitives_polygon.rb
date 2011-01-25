@@ -1,23 +1,23 @@
-require '../rupov/povray.rb'
-require 'include/genericscene.rb'
+require 'rupov'
+require './include/genericscene'
 
 puts Scene.new() { |scene|
-    scene << Povray::Objects::FinitePatchPrimitives::Polygon.new(
-            [   Povray::DataTypes::Vector::XY.new( 0,0 ),
-                Povray::DataTypes::Vector::XY.new( 0,6 ),
-                Povray::DataTypes::Vector::XY.new( 4,6 ),
-                Povray::DataTypes::Vector::XY.new( 4,3 ),
-                Povray::DataTypes::Vector::XY.new( 1,3 ),
-                Povray::DataTypes::Vector::XY.new( 1,0 ),
-                Povray::DataTypes::Vector::XY.new( 0,0 ),
-                Povray::DataTypes::Vector::XY.new( 1,4 ),
-                Povray::DataTypes::Vector::XY.new( 1,5 ),
-                Povray::DataTypes::Vector::XY.new( 3,5 ),
-                Povray::DataTypes::Vector::XY.new( 3,4 ),
-                Povray::DataTypes::Vector::XY.new( 1,4 )
+    scene << RuPov::Objects::FinitePatchPrimitives::Polygon.new(
+            [   RuPov::DataTypes::Vector::XY.new( 0,0 ),
+                RuPov::DataTypes::Vector::XY.new( 0,6 ),
+                RuPov::DataTypes::Vector::XY.new( 4,6 ),
+                RuPov::DataTypes::Vector::XY.new( 4,3 ),
+                RuPov::DataTypes::Vector::XY.new( 1,3 ),
+                RuPov::DataTypes::Vector::XY.new( 1,0 ),
+                RuPov::DataTypes::Vector::XY.new( 0,0 ),
+                RuPov::DataTypes::Vector::XY.new( 1,4 ),
+                RuPov::DataTypes::Vector::XY.new( 1,5 ),
+                RuPov::DataTypes::Vector::XY.new( 3,5 ),
+                RuPov::DataTypes::Vector::XY.new( 3,4 ),
+                RuPov::DataTypes::Vector::XY.new( 1,4 )
             ] ) { |polygon|
-        polygon << Povray::Textures::Pigments::SolidColour.new( Povray::Methods::Colour.new( "Yellow" ) )
-        polygon << Povray::Methods::MultiValue.new( [0.2], "scale" )
-        polygon << Povray::Methods::MultiValue.new( [Povray::DataTypes::Vector::XYZ.new( 0,225,0 )], "rotate" )
+        polygon << RuPov::Textures::Pigments::SolidColour.new( RuPov::Methods::Colour.new( "Yellow" ) )
+        polygon << RuPov::Methods::MultiValue.new( [0.2], "scale" )
+        polygon << RuPov::Methods::MultiValue.new( [RuPov::DataTypes::Vector::XYZ.new( 0,225,0 )], "rotate" )
     }
 }
