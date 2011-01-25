@@ -1,6 +1,6 @@
-class Scene < Povray::Group
-    class Wall < Povray::Group
-        include Povray
+class Scene < RuPov::Group
+    class Wall < RuPov::Group
+        include RuPov
         include Objects
         include InfiniteSolidPrimitives
         include Textures
@@ -61,7 +61,7 @@ class Scene < Povray::Group
         end
     end
     
-    include Povray
+    include RuPov
     include Objects
     include InfiniteSolidPrimitives
     include Textures
@@ -79,13 +79,13 @@ class Scene < Povray::Group
         self << global_settings
 
         self << Camera::Basic.new(
-                    Location.new( Povray::DataTypes::Vector::XYZ.new(1,1.75,2) ),
-                    LookAt.new( Povray::DataTypes::Vector::XYZ.new(0,0.75,0) ) )
+                    Location.new( RuPov::DataTypes::Vector::XYZ.new(1,1.75,2) ),
+                    LookAt.new( RuPov::DataTypes::Vector::XYZ.new(0,0.75,0) ) )
 
         self << LightSources::PointLight.new(
-                    Povray::DataTypes::Vector::XYZ.new( 5,5,2 ), Colour.new( "White" ) )
+                    RuPov::DataTypes::Vector::XYZ.new( 5,5,2 ), Colour.new( "White" ) )
 
-        floor = Plane.new( Povray::DataTypes::Vector::XYZ.new( 0,1,0 ), 0) { |this|
+        floor = Plane.new( RuPov::DataTypes::Vector::XYZ.new( 0,1,0 ), 0) { |this|
             this << Texture.new() { |this|
                 this << Checker.new( Colour.new( "White" ), Colour.new( "Blue" ) )
                 this << Scale.new( 1.7 )
@@ -97,11 +97,11 @@ class Scene < Povray::Group
         self << floor 
 
         self << Wall.new(
-                    Povray::DataTypes::Vector::XYZ.new( 0,0,0),
-                    Povray::DataTypes::Vector::XYZ.new(0,0,-2) )
+                    RuPov::DataTypes::Vector::XYZ.new( 0,0,0),
+                    RuPov::DataTypes::Vector::XYZ.new(0,0,-2) )
         self << Wall.new(
-                    Povray::DataTypes::Vector::XYZ.new( 0,90,0),
-                    Povray::DataTypes::Vector::XYZ.new(-2,0,0) )
+                    RuPov::DataTypes::Vector::XYZ.new( 0,90,0),
+                    RuPov::DataTypes::Vector::XYZ.new(-2,0,0) )
 
         yield(self) if block_given? and self.class == Scene
     end
