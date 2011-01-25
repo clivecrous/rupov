@@ -1,5 +1,5 @@
 require 'rupov'
-require './include/genericscene'
+require "./#{File.dirname(__FILE__)}/include/genericscene"
 
 puts Scene.new() { |scene|
     scene << RuPov::Objects::FiniteSolidPrimitives::Torus.new( 0.65, 0.2 ) { |torus|

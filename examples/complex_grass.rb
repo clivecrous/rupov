@@ -1,5 +1,5 @@
 require 'rupov'
-require './include/genericscene'
+require "./#{File.dirname(__FILE__)}/include/genericscene"
 
 class GrassBlade < RuPov::Objects::FiniteSolidPrimitives::SphereSweep
     @@grassColour = RuPov::DataTypes::Vector::RGB.new( 0, 0.7, 0)

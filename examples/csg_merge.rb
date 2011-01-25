@@ -1,5 +1,5 @@
 require 'rupov'
-require './include/genericscene'
+require "./#{File.dirname(__FILE__)}/include/genericscene"
 
 puts Scene.new() { |scene|
     scene << RuPov::CSG::Merge.new() { |merge|
