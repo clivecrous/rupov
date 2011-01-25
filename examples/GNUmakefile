@@ -16,7 +16,7 @@ all: $(PNGFILES)
 $(PNGFILES): %.png: %.pov
 	$(POVRAY) $<
 
-$(POVFILES): %.pov: %.rb include/genericscene.rb ../rupov/povray.rb
+$(POVFILES): %.pov: %.rb include/genericscene.rb ../lib/rupov.rb
 	ruby $< >$@
 
 clean:
