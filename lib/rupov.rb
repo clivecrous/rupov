@@ -1,3 +1,5 @@
+require 'rupov/version'
+
 module RuPov
 
     class Base
